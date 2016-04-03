@@ -1,0 +1,9 @@
+{
+  "name": "nodebeats",
+  "private": true,
+  "engines": {
+    "node": ">=4.2.0"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
