@@ -1,0 +1,15 @@
+{
+    "apps": [{
+        "name": "nodebeats",
+        "script": "server.js",
+        "watch": false,
+        "node_args": "--harmony",
+        "instances": 4,
+        "env": {
+            "NODE_ENV": "development",
+        },
+        "env_production" : {
+            "NODE_ENV": "production"
+        }
+    }]
+}
