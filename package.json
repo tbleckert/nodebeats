@@ -2,6 +2,7 @@
   "name": "nodebeats",
   "private": true,
   "scripts": {
+    "test": "mocha",
     "start": "node --harmony server.js"
   },
   "engines": {
