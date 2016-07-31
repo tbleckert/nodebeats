@@ -1,3 +1,5 @@
+![](http://forthebadge.com/images/badges/built-by-hipsters.svg)
+
 # Nodebeats
 Don't let the beat drop
 
