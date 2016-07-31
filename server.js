@@ -4,14 +4,14 @@ require('dotenv').config();
 const restify = require('restify');
 const config  = require('./config');
 
-const restifyConfig  = {
+const restifyConfig = {
     name: 'nodebeats',
     version: '1.0.0'
 };
 
 if (config.ssl) {
-    restifyConfig.key = process.env.HTTPS_KEY;
-    restifyConfig.certificate = process.env.HTTPS_CERT;
+    restifyConfig.key = config.https_key;
+    restifyConfig.certificate = config.https_cert;
 }
 
 const server = restify.createServer(restifyConfig);
