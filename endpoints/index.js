@@ -15,6 +15,22 @@ function dbResponse(error, res) {
 
 module.exports = function (server, io) {
 
+    server.get('/:service/lastBeat', function (req, res, next) {
+        Beat.find(req.params.service, function (error, document) {
+            if (error) {
+                return next(new restify.errors.InternalServerError(error));
+            }
+
+            if (!document) {
+                return next(new restify.errors.NotFoundError('The service is not alive, send a beat to it'));
+            }
+
+            Beat.close();
+
+            return res.send(document.beats.pop());
+        })
+    });
+
     server.get('/:service/beats', function (req, res, next) {
         Beat.find(req.params.service, function (error, document) {
             if (error) {
@@ -25,8 +41,10 @@ module.exports = function (server, io) {
                 return next(new restify.errors.NotFoundError('The service is not alive, send a beat to it'));
             }
 
+            Beat.close();
+
             return res.send(document.beats);
-        })
+        });
     });
 
     server.post('/:service/beat', function (req, res, next) {
@@ -53,7 +71,7 @@ module.exports = function (server, io) {
             }
 
             // Emit the event
-            io.emit('beat', data);
+            io.emit('beat:' + service, data);
         });
 
         return next();
