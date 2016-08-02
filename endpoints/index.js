@@ -51,6 +51,10 @@ module.exports = function (server, io) {
         let service = req.params.service;
         let data    = req.body;
 
+        if (!data) {
+            data = {};
+        }
+
         data.date = new Date;
 
         Beat.find(service, function (error, document) {
