@@ -4,6 +4,7 @@ require('dotenv').config();
 const restify  = require('restify');
 const socketio = require('socket.io');
 const config   = require('./config');
+const fs       = require('fs');
 
 const restifyConfig = {
     name: 'nodebeats',
@@ -11,8 +12,8 @@ const restifyConfig = {
 };
 
 if (config.ssl) {
-    restifyConfig.key = config.https_key;
-    restifyConfig.certificate = config.https_cert;
+    restifyConfig.key = fs.readFileSync(config.https_key);
+    restifyConfig.certificate = fs.readFileSync(config.https_cert);
 }
 
 const server = restify.createServer(restifyConfig);
