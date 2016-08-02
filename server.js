@@ -16,8 +16,9 @@ if (config.ssl) {
 }
 
 const server = restify.createServer(restifyConfig);
-const io     = socketio.listen(server);
+const io     = socketio.listen(server.server);
 
+server.use(restify.CORS());
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
