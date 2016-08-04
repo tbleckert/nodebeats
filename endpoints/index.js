@@ -4,8 +4,6 @@ const restify = require('restify');
 const Beat    = require('../models/Beat');
 
 function dbResponse(error, res) {
-    Beat.close();
-
     if (error) {
         return next(new restify.errors.InternalServerError(error));
     }
@@ -25,8 +23,6 @@ module.exports = function (server, io) {
                 return next(new restify.errors.NotFoundError('The service is not alive, send a beat to it'));
             }
 
-            Beat.close();
-
             return res.send(document.beats.pop());
         })
     });
@@ -40,8 +36,6 @@ module.exports = function (server, io) {
             if (!document) {
                 return next(new restify.errors.NotFoundError('The service is not alive, send a beat to it'));
             }
-
-            Beat.close();
 
             return res.send(document.beats);
         });
@@ -59,8 +53,6 @@ module.exports = function (server, io) {
 
         Beat.find(service, function (error, document) {
             if (error) {
-                Beat.close();
-
                 return next(new restify.errors.InternalServerError(error));
             }
 
