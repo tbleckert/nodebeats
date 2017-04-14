@@ -12,9 +12,3 @@ Simple Heartbeats server written in Node.js and uses websockets and mongodb to s
 ## UI
 
 Check [this repo](https://github.com/tbleckert/nodebeats-ui) for an example of how to use the heartbeats to present a visual monitoring of your services.
-
-## Testing
-1. Install `mocha` globally `npm install mocha -g`
-2. `npm test`
-
-_No tests written yet_
