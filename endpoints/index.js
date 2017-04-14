@@ -2,6 +2,7 @@
 
 const restify = require('restify');
 const Beat    = require('../models/Beat');
+const config  = require('../config');
 
 function dbResponse(error, res) {
     if (error) {
@@ -43,18 +44,30 @@ module.exports = function (server, io) {
 
     server.post('/:service/beat', function (req, res, next) {
         let service = req.params.service;
-        let data    = req.body;
-
-        if (!data) {
-            data = {};
-        }
-
-        data.date = new Date;
 
         Beat.find(service, function (error, document) {
             if (error) {
                 return next(new restify.errors.InternalServerError(error));
             }
+
+            let lastBeat = (document && document.beats) ? document.beats.pop() : false;
+
+            if (lastBeat) {
+                lastBeat    = (new Date(lastBeat.date)).getTime();
+                let currentTime = (new Date).getTime();
+
+                if (currentTime - lastBeat < config.time_between_beats) {
+                    return dbResponse(false, res);
+                }
+            }
+
+            let data = req.body;
+
+            if (!data) {
+                data = {};
+            }
+
+            data.date = new Date;
 
             if (document) {
                 Beat.update(service, data, function (error) {
