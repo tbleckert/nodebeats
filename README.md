@@ -7,7 +7,7 @@ Simple Heartbeats server written in Node.js and uses websockets and mongodb to s
 1. `npm install`
 2. `cp .env.example .env`
 3. `npm start`. Optionally install `pm2` and use the ecosystem.json config.
-4. Post heartbeats `curl -H "Content-Type: application/json" -X POST -d '{"foo": "bar"}' http://node.app:8080/service-1/beat`.
+4. Post heartbeats `curl -H "Content-Type: application/json" -X POST -d '{"foo": "bar"}' http://localhost:8080/service-1/beat`.
 
 ## UI
 
