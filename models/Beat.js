@@ -59,7 +59,7 @@ const Beat = {
                 return callback(error, null);
             }
 
-            this.collection.update({service: service}, {$push: {'beats': data}}, function (error) {
+            this.collection.update({service: service}, {$push: {'beats': {$each: [data], $slice: -config.keep_rows}}}, function (error) {
                 return callback(error);
             });
         });
